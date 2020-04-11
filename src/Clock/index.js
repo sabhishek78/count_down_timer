@@ -9,6 +9,7 @@ class Clock extends Component {
             hours: 0,
             minutes: 0,
             seconds: 0,
+            visible:true,
         };
     }
 
@@ -17,9 +18,13 @@ class Clock extends Component {
     }
 
     componentDidMount() {
-        setInterval(() => this.getTimeUntil(this.props.deadline), 1000);
+      this.interval=setInterval(() => this.getTimeUntil(this.props.deadline), 1000);
     }
-
+    componentWillUnmount() {
+        if (this.interval) {
+            clearInterval(this.interval);
+        }
+    }
     leading0(num) {
         return num < 10 ? '0' + num : num;
     }
@@ -28,7 +33,7 @@ class Clock extends Component {
         const time = Date.parse(deadline) - Date.parse(new Date());
 
         if(time < 0) {
-            this.setState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+            this.setState({ days: 0, hours: 0, minutes: 0, seconds: 0 ,visible:false});
 
         } else {
             const seconds = Math.floor((time/1000)%60);
@@ -42,14 +47,20 @@ class Clock extends Component {
     }
 
     render() {
-        return(
-            <div className="Clock">
-                <div className="Clock-days">{this.leading0(this.state.days)} Days</div>
-                <div className="Clock-hours">{this.leading0(this.state.hours)} Hours</div>
-                <div className="Clock-minutes">{this.leading0(this.state.minutes)} Minutes</div>
-                <div className="Clock-seconds">{this.leading0(this.state.seconds)} Seconds</div>
-            </div>
-        );
+        if(this.state.visible){
+            return(
+                <div className="Clock">
+                    <div className="Clock-days">{this.leading0(this.state.days)} Days</div>
+                    <div className="Clock-hours">{this.leading0(this.state.hours)} Hours</div>
+                    <div className="Clock-minutes">{this.leading0(this.state.minutes)} Minutes</div>
+                    <div className="Clock-seconds">{this.leading0(this.state.seconds)} Seconds</div>
+                </div>
+            );
+        }
+        else{
+            return(<div> </div>)
+        }
+
     }
 }
 export default Clock;
