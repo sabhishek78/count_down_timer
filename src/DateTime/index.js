@@ -26,20 +26,7 @@ class DateTime extends React.Component {
 
     }
 
-    getTimeRemaining(endtime) {
-        var t = Date.parse(endtime) - Date.parse(new Date());
-        var seconds = Math.floor((t / 1000) % 60);
-        var minutes = Math.floor((t / 1000 / 60) % 60);
-        var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-        var days = Math.floor(t / (1000 * 60 * 60 * 24));
 
-        return {
-            'days': days,
-            'hours': hours,
-            'minutes': minutes,
-            'seconds': seconds
-        };
-    }
 
     render() {
         var timer;
@@ -52,7 +39,14 @@ class DateTime extends React.Component {
                 </div>
                 <div>
                     {this.state.timerList.map((item, index) => (<div>
-                        <Clock deadline={this.state.timerList[index]}/>
+                        <Clock deadline={this.state.timerList[index]} deleteTimer={() => {
+
+                            this.state.timerList.splice(index, 1);
+                            this.setState({
+                                timerList: this.state.timerList
+                            });
+
+                        }}/>
                     </div>))
                     }
                 </div>

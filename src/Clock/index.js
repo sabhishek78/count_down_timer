@@ -9,7 +9,7 @@ class Clock extends Component {
             hours: 0,
             minutes: 0,
             seconds: 0,
-            visible:true,
+            expired:false,
         };
     }
 
@@ -32,9 +32,8 @@ class Clock extends Component {
     getTimeUntil(deadline) {
         const time = Date.parse(deadline) - Date.parse(new Date());
 
-        if(time < 0) {
-            this.setState({ days: 0, hours: 0, minutes: 0, seconds: 0 ,visible:false});
-
+        if(time <0) {
+            this.props.deleteTimer();
         } else {
             const seconds = Math.floor((time/1000)%60);
             const minutes = Math.floor((time/1000/60)%60);
@@ -47,8 +46,8 @@ class Clock extends Component {
     }
 
     render() {
-        if(this.state.visible){
-            return(
+
+            return (
                 <div className="Clock">
                     <div className="Clock-days">{this.leading0(this.state.days)} Days</div>
                     <div className="Clock-hours">{this.leading0(this.state.hours)} Hours</div>
@@ -56,11 +55,10 @@ class Clock extends Component {
                     <div className="Clock-seconds">{this.leading0(this.state.seconds)} Seconds</div>
                 </div>
             );
-        }
-        else{
-            return(<div> </div>)
-        }
+
 
     }
-}
+
+    }
+
 export default Clock;
