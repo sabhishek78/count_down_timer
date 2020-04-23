@@ -20,10 +20,8 @@ class DateTime extends React.Component {
         this.setState({
             timer: timer,
             timerList: timerListCopy,
-
         })
         console.log('timerListCopy=' + timerListCopy);
-
     }
 
 

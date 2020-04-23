@@ -9,7 +9,7 @@ class Clock extends Component {
             hours: 0,
             minutes: 0,
             seconds: 0,
-            expired:false,
+            alert:false,
         };
     }
 
@@ -31,9 +31,12 @@ class Clock extends Component {
 
     getTimeUntil(deadline) {
         const time = Date.parse(deadline) - Date.parse(new Date());
-
-        if(time <0) {
+        if(time <-3) {
+            this.setState({alert:false});
             this.props.deleteTimer();
+        }
+        else if(time <=0 && time>=-3) {
+            this.setState({alert:true});
         } else {
             const seconds = Math.floor((time/1000)%60);
             const minutes = Math.floor((time/1000/60)%60);
@@ -46,19 +49,20 @@ class Clock extends Component {
     }
 
     render() {
-
-            return (
-                <div className="Clock">
-                    <div className="Clock-days">{this.leading0(this.state.days)} Days</div>
-                    <div className="Clock-hours">{this.leading0(this.state.hours)} Hours</div>
-                    <div className="Clock-minutes">{this.leading0(this.state.minutes)} Minutes</div>
-                    <div className="Clock-seconds">{this.leading0(this.state.seconds)} Seconds</div>
-                </div>
-            );
-
-
+           if(this.state.alert){
+               return(<div>ALERT</div>);
+           }
+           else{
+               return (
+                   <div className="Clock">
+                       <div className="Clock-days">{this.leading0(this.state.days)} Days</div>
+                       <div className="Clock-hours">{this.leading0(this.state.hours)} Hours</div>
+                       <div className="Clock-minutes">{this.leading0(this.state.minutes)} Minutes</div>
+                       <div className="Clock-seconds">{this.leading0(this.state.seconds)} Seconds</div>
+                   </div>
+               );
+           }
     }
-
-    }
+}
 
 export default Clock;
