@@ -7,15 +7,12 @@ class DateTime extends React.Component {
         this.state = {
             timer: "",
             timerList: [],
-            timeRemainingList: []
         }
     };
 
     handleClick(timer) {
         let timerListCopy = this.state.timerList.slice();
         timerListCopy.push(timer);
-        // let timeRemainingListCopy=this.state.timeRemainingList.slice();
-        // timeRemainingListCopy.push(this.getTimeRemaining(timer));
         console.log('timer=' + timer);
         this.setState({
             timer: timer,
@@ -27,7 +24,7 @@ class DateTime extends React.Component {
 
 
     render() {
-        var timer;
+        let timer;
         return (
             <div className="clockdiv">
                 <div>
@@ -36,10 +33,10 @@ class DateTime extends React.Component {
                     <button className="button" onClick={() => this.handleClick(timer)}>Start Timer</button>
                 </div>
                 <div>
-                    {this.state.timerList.map((item, index) => (<div>
-                        <Clock deadline={this.state.timerList[index]} deleteTimer={() => {
+                    {this.state.timerList.map((item) => (<div>
+                        <Clock deadline={item} deleteTimer={() => {
 
-                            this.state.timerList.splice(index, 1);
+                            this.state.timerList.splice(this.state.timerList.indexOf(item), 1);
                             this.setState({
                                 timerList: this.state.timerList
                             });
@@ -48,9 +45,7 @@ class DateTime extends React.Component {
                     </div>))
                     }
                 </div>
-
             </div>
-
         )
     }
 }
