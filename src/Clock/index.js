@@ -27,13 +27,11 @@ class Clock extends Component {
 
     getTimeUntil(deadline) {
         const time = Date.parse(deadline) - Date.parse(new Date());
-        if(time <-3) {
-            this.setState({alert:false});
+        if(time <=0) {
+            alert("Timer Expired!");
             this.props.deleteTimer();
         }
-        else if(time <=0 && time>=-3) {
-            this.setState({alert:true});
-        } else {
+         else {
             const seconds = Math.floor((time/1000)%60);
             const minutes = Math.floor((time/1000/60)%60);
             const hours = Math.floor((time/(1000*60*60))%24);
