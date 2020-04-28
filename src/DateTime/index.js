@@ -33,8 +33,8 @@ class DateTime extends React.Component {
                     <button className="button" onClick={() => this.handleClick(timer)}>Start Timer</button>
                 </div>
                 <div>
-                    {this.state.timerList.map((item,index) => (<div>
-                        <Clock  key={item.toString()+new Date().toString()} deadline={item} deleteTimer={() => {
+                    {this.state.timerList.map((item) => (<div>
+                        <Clock  key={item.toString()} deadline={item} deleteTimer={() => {
 
                             this.state.timerList.splice(this.state.timerList.indexOf(item), 1);
                             this.setState({
