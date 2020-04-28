@@ -34,7 +34,7 @@ class DateTime extends React.Component {
                 </div>
                 <div>
                     {this.state.timerList.map((item,index) => (<div>
-                        <Clock key={item.toString()+index.toString()} deadline={item} deleteTimer={() => {
+                        <Clock  key={item.toString()+new Date().toString()} deadline={item} deleteTimer={() => {
 
                             this.state.timerList.splice(this.state.timerList.indexOf(item), 1);
                             this.setState({
